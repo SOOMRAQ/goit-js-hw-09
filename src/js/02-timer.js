@@ -1,7 +1,41 @@
 // Описаний в документації
 import flatpickr from 'flatpickr';
 // Додатковий імпорт стилів
-import 'flatpickr/dist/flatpickr.min.css';
+import 'flatpickr/dist/themes/dark.css';
+import Notiflix from 'notiflix';
+
+Notiflix.Report.init({
+  className: 'notiflix-report',
+  width: '200px',
+  backgroundColor: '#f8f8f8',
+  borderRadius: '25px',
+  rtl: false,
+  zindex: 4002,
+  backOverlay: false,
+  backOverlayColor: 'rgba(0,0,0,0.5)',
+  backOverlayClickToClose: false,
+  fontFamily: 'Quicksand',
+  svgSize: '60px',
+  plainText: true,
+  titleFontSize: '16px',
+  titleMaxLength: 34,
+  messageFontSize: '13px',
+  messageMaxLength: 400,
+  buttonFontSize: '14px',
+  buttonMaxLength: 34,
+  cssAnimation: true,
+  cssAnimationDuration: 360,
+  cssAnimationStyle: 'fade', // 'fade' - 'zoom'
+
+  failure: {
+    svgColor: '#ff5549',
+    titleColor: '#1e1e1e',
+    messageColor: '#242424',
+    buttonBackground: '#ff5549',
+    buttonColor: '#fff',
+    backOverlayColor: 'rgba(255,85,73,0.2)',
+  },
+});
 
 const startBtn = document.querySelector('button[data-start]');
 startBtn.disabled = true;
@@ -27,7 +61,11 @@ const options = {
   onClose(selectedDates) {
     if (selectedDates[0] < new Date()) {
       startBtn.disabled = true;
-      window.alert('Please choose a date in the future');
+      Notiflix.Report.failure(
+        'Error',
+        'Please choose data in the future',
+        'Cancel'
+      );
     } else {
       startBtn.disabled = false;
       startBtn.addEventListener('click', () => {
