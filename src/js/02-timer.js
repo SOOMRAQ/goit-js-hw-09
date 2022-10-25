@@ -92,16 +92,11 @@ function convertMs(ms) {
 
 function changeTimer() {
   let timer = setInterval(() => {
-    let ms = new Date(calendar.value) - new Date();
-
-    if (ms >= 0) {
-      timerDays.textContent = convertMs(ms).days;
-      timerHours.textContent = convertMs(ms).hours;
-      timerMinutes.textContent = convertMs(ms).minutes;
-      timerSeconds.textContent = convertMs(ms).seconds;
-    } else {
-      clearInterval(timer);
-    }
+    let count = convertMs(new Date(calendar.value) - new Date());
+    timerDays.textContent = count.days;
+    timerHours.textContent = count.hours;
+    timerMinutes.textContent = count.minutes;
+    timerSeconds.textContent = count.seconds;
   }, 1000);
 }
 
