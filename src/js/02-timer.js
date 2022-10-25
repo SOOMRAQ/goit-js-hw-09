@@ -54,8 +54,7 @@ const options = {
 
   onClose(selectedDates) {
     console.log(selectedDates[0]);
-    if (selectedDates[0] < new Date()) {
-      startTimerBtn.disabled = true;
+    if (selectedDates[0].getTime() < Date.now()) {
       Notiflix.Report.failure(
         'Error',
         'Please choose data in the future',
@@ -69,7 +68,7 @@ const options = {
     }
   },
 };
-flatpickr(calendar, options);
+
 function convertMs(ms) {
   // Number of milliseconds per unit of time
   const second = 1000;
@@ -96,6 +95,7 @@ function changeTimer() {
     let countdown = new Date(calendar.value) - new Date();
     startBtn.disabled = true;
     calendar.disabled = true;
+    console.log(countdown);
     if (countdown >= 0) {
       let timerData = convertMs(countdown);
       timerValue.days.textContent = timerData.days;
@@ -111,3 +111,5 @@ function changeTimer() {
 function addLeadingZero(value) {
   return String(value).padStart(2, '0');
 }
+
+flatpickr(calendar, options);
